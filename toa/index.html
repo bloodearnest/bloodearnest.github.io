@@ -1,29 +1,227 @@
 <html>
-  <head>
-    <title>Tomb of Annihiliation Campaign</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css">
-    <style>
-      body { margin: 1em; }
-      .characters img { height: 3em; }
-    </style>
-  </head>
-  <body>
-    <ul>
-      <li><a href="/athack">@hack combat app</a></li>
-      <li><a href="/dnd5e-quickref">Combat actions quick reference</a></li>
-      <li><a href="https://docs.google.com/spreadsheets/d/1eXPtvE3rvwDW2_cXVK3M_OPjx1BLk-pVoFA_F2hD2ZI/edit">Party Inventory</a></li>
-      <li><a href="https://www.dropbox.com/sh/oarzj1cay273238/AAASZsyhxq4hqAS6vPjp9wB6a?dl=0">Dropbox Folder</a>
-      <li><a href="rest.html">Resting Checklist</a></li>
-    </ul>
-    <h3>Characters</h3>
-    <table class="characters">
-      <tr><td>Timber</td><td><a href="Timber.jpg"><img src="Timber.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/1119096">DndBeyond</a></td><td><a href="/athack/#Timber">@hack</a></td></tr>
-      <tr><td>Nordan</td><td><a href="Nordan.jpg"><img src="Nordan.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/1133678">DndBeyond</a></td><td><a href="/athack/#Nordan">@hack</a></td></tr>
-      <tr><td>Corminar</td><td><a href="Corminar.jpg"><img src="Corminar.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/1339195">DndBeyond</a></td><td><a href="/athack/#Corminar">@hack</a></td></tr>
-      <tr><td>Thorin</td><td><a href="Thorin.jpg"><img src="Thorin.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/1149756">DndBeyond</a></td><td><a href="/athack/#Thorin">@hack</a></td></tr>
-      <tr><td>Airnel</td><td><a href="Airnel.jpg"><img src="Airnel.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/1183264">DndBeyond</a></td><td><a href="/athack/#Airnel">@hack</a></td></tr>
-      <tr><td>Grondrath</td><td><a href="Grondrath.jpg"><img src="Grondrath.jpg"></a></td><td><a href="https://www.dndbeyond.com/characters/6579686">DndBeyond</a></td><td><a href="/athack/#Grondrath">@hack</a></td></tr>
-    </table>
-  </body>
+	<head>
+		<title>Tomb of Annihiliation Campaign</title>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css">
+		<style>
+			body { margin: 1em; }
+			td { vertical-align: middle; }
+			.characters img { height: 3em; }
+			.characters .hitdie * { display: inline-block; }
+			.characters .hitdie input[type=number] {
+				width: 2em;
+				height: 1.5em;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				border-radius: 0;
+				border-bottom: 1px solid grey;
+				text-align: center;
+			}
+			span.die { font-weight: bold; width: 4em; }
+			input[type=number]::-webkit-inner-spin-button,
+			input[type=number]::-webkit-outer-spin-button { opacity: 1; }
+
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li><a href="/athack">@hack combat app</a></li>
+			<li><a href="/dnd5e-quickref">Combat actions quick reference</a></li>
+			<li><a href="https://docs.google.com/spreadsheets/d/1eXPtvE3rvwDW2_cXVK3M_OPjx1BLk-pVoFA_F2hD2ZI/edit">Party Inventory</a></li>
+			<li><a href="https://www.dropbox.com/sh/oarzj1cay273238/AAASZsyhxq4hqAS6vPjp9wB6a?dl=0">Dropbox Folder</a>
+				<li><a href="rest.html">Resting Checklist</a></li>
+		</ul>
+		<h3>Characters</h3>
+		<table class="characters">
+			<th>
+				<tr>
+					<th colspan="4"></th>
+					<th>Hit Die</th>
+				</tr>
+			</th>
+			<tbody>
+				<tr class="character">
+					<td>Timber</td>
+					<td><a href="Timber.jpg"><img src="Timber.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/1119096">DndBeyond</a></td>
+					<td><a href="/athack/#Timber">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d10+2</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button class="button" type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Nordan</td>
+					<td><a href="Nordan.jpg"><img src="Nordan.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/1133678">DndBeyond</a></td>
+					<td><a href="/athack/#Nordan">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d8+2</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="4">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Corminar</td>
+					<td><a href="Corminar.jpg"><img src="Corminar.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/1339195">DndBeyond</a></td>
+					<td><a href="/athack/#Corminar">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d8+1</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Airnel</td>
+					<td><a href="Airnel.jpg"><img src="Airnel.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/1183264">DndBeyond</a></td>
+					<td><a href="/athack/#Airnel">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d8+1</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Grondrath</td>
+					<td><a href="Grondrath.jpg"><img src="Grondrath.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/6579686">DndBeyond</a></td>
+					<td><a href="/athack/#Grondrath">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d12+4</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Thorin</td>
+					<td><a href="Thorin.jpg"><img src="Thorin.jpg"></a></td>
+					<td><a href="https://www.dndbeyond.com/characters/1149756">DndBeyond</a></td>
+					<td><a href="/athack/#Thorin">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">7</span>
+						<span class="die">1d10+3</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+				<tr class="character">
+					<td>Daz</td>
+					<td><a href="daz.jpg"><img src="daz.jpg"></a></td>
+					<td></td>
+					<td><a href="/athack/#Thorin">@hack</a></td>
+					<td class="hitdie hd1">
+						<input name="current" type="number" min="0">/
+						<span class="maxdie">4</span>
+						<span class="die">1d10+3</span>
+						Spend: <input name="number" type="number" min="0" value="1">
+						<label for="maximise">Maximise</label>
+						<input name="maximise" type="checkbox">
+						<button type="button">Roll</button>
+						<span class="result"></span>
+						<input type="hidden" name="minimum" value="1">
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+		<script type="text/javascript" src="https://bloodearnest.github.io/athack/dnd.js"></script>
+		<script type="text/javascript">
+var roll = function(die_text, annotated, die_func) {
+	let parts = Array.from(parse_dice(die_text))
+	var score = 0;
+	for (let {n, size} of parts) {
+		score += roll_dice(n, size, annotated, false, die_func);
+	}
+	return score;
+};
+
+var setup = function(pc) {
+	var roll_button = pc.querySelector('button');
+	var max_die = parseInt(pc.querySelector('span.maxdie').innerText);
+	var current = pc.querySelector('input[name=current]');
+	var num = pc.querySelector('input[name=number]');
+	var result = pc.querySelector('span.result');
+	var maximise = pc.querySelector('input[name=maximise]');
+
+	num.max = max_die;
+	num.value = 1;
+	current.value = max_die;
+	current.max = max_die;
+
+	// fixed values
+	var die_text = pc.querySelector('span.die').innerText;
+	var minimum = parseInt(pc.querySelector('input[name=minimum]').value);
+
+	var die_func = function(n) {
+		var r = die(n);
+		return r > minimum ? r : minimum;
+	}
+
+	roll_button.onclick = function() {
+		var score = 0;
+		var df = maximise.checked ? Math.max : die_func;
+		var annotated = [];
+		for (var i = 0; i < num.value; i++) {
+			score += roll(die_text, annotated, df);
+		}
+		current.value -= num.value;
+		num.max = current.value;
+		num.value = Math.min(current.value, 1);
+		result.innerText = score;
+		console.log(annotated);
+		return false;
+	};
+
+	current.onchange = function() {
+		num.max = current.value;
+		num.value = Math.min(current.value, 1);
+	}
+};
+
+var chars = document.querySelectorAll('.characters tr.character');
+for(var z = 0; z < chars.length; z++) {
+	var pc = chars[z];
+	setup(pc);
+}
+		</script>
+	</body>
 </html>
