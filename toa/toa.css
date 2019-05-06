@@ -1,0 +1,87 @@
+body {
+  background-color: #EEE5CE;
+  font-size: 2em;
+  font-family: BookSanity;
+  text-rendering: optimizeLegibility;
+  width: 100%;
+  margin: 0.5em;
+}
+
+ul { margin-bottom: 1em; }
+
+.characters th, .character td {
+	padding: 0;
+	text-align: left;
+	vertical-align: middle;
+	border: 0.25em solid transparent;
+}
+
+.characters td.name {
+  font-family: MrJeeves;
+  font-weight: 800;
+  color: #58180D;
+}
+.characters .athack {
+	display: inline-block;
+	font-size: 1.2em;
+    border-radius: 2em;
+	height: 1.5em;
+	padding: 0 0.3em;
+    border: 5px solid #58180D;
+    color: #EEE5CE;
+    background-color: #58180D;
+	text-decoration: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+.characters img { height: 2em; }
+.characters .hitdie * {
+	display: inline-block;
+	font-size: 1em;
+}
+
+.characters .die {
+	font-size: 0.8em;
+	color: grey;
+}
+
+.characters button {
+	min-width:  4em;
+}
+
+/* always show spinners */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { opacity: 1; }
+
+/* bigger checkboxes */
+input[type=checkbox] {
+	transform: scale(3);
+	margin: 0.2em;
+}
+
+#healingkits input {
+	width: 2em;
+}
+
+#hp { width: 2em; }
+
+button {
+    color: #EEE5CE;
+    background-color: #58180D;
+    border: 2px solid #58180D;
+	border-radius: 0.25em;
+}
+
+button:active {
+    background-color: #EEE5CE;
+    color: #58180D;
+}
+
+button {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}

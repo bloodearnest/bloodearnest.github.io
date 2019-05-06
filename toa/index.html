@@ -1,169 +1,153 @@
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>Tomb of Annihiliation Campaign</title>
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css">
-		<style>
-			body { margin: 1em; }
-			td { vertical-align: middle; }
-			.characters img { height: 3em; }
-			.characters .hitdie * { display: inline-block; }
-			.characters .hitdie input[type=number] {
-				width: 2em;
-				height: 1.5em;
-				margin: 0;
-				padding: 0;
-				border: 0;
-				border-radius: 0;
-				border-bottom: 1px solid grey;
-				text-align: center;
-			}
-			span.die { font-weight: bold; width: 4em; }
-			input[type=number]::-webkit-inner-spin-button,
-			input[type=number]::-webkit-outer-spin-button { opacity: 1; }
-
-		</style>
+		<link rel="stylesheet" href="https://bloodearnest.github.io/athack/fonts.css">
+		<link rel="stylesheet" href="toa.css">
 	</head>
 	<body>
 		<ul>
-			<li><a href="/athack">@hack combat app</a></li>
 			<li><a href="/dnd5e-quickref">Combat actions quick reference</a></li>
 			<li><a href="https://docs.google.com/spreadsheets/d/1eXPtvE3rvwDW2_cXVK3M_OPjx1BLk-pVoFA_F2hD2ZI/edit">Party Inventory</a></li>
 			<li><a href="https://www.dropbox.com/sh/oarzj1cay273238/AAASZsyhxq4hqAS6vPjp9wB6a?dl=0">Dropbox Folder</a>
-				<li><a href="rest.html">Resting Checklist</a></li>
+			<li><a href="rest.html">Resting Checklist</a></li>
 		</ul>
-		<h3>Characters</h3>
 		<table class="characters">
-			<th>
+			<thead>
 				<tr>
-					<th colspan="4"></th>
-					<th>Hit Die</th>
+					<th>Name</th>
+					<th colspan="3"></th>
+					<th><button id="longrest">Long Rest</button></th>
+					<th></th>
+					<th><label title="Airnel can maximise your hit dice at the cost of a use of a healers kit">Max</label></th>
+					<th><label title="Airnel can expend a use of a Healers kit to heal you 1d6+4+level">Kit</label></th>
+					<th id="songofrest"><button>SoR</button></th>
+					<th id="hp">HP</th>
+					<th id="healingkits">Kits: <input name="kits" type="number" min=0 value=0></th>
 				</tr>
-			</th>
+			</thead>
 			<tbody>
 				<tr class="character">
-					<td>Timber</td>
+					<td class="name">Timber</td>
 					<td><a href="Timber.jpg"><img src="Timber.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/1119096">DndBeyond</a></td>
-					<td><a href="/athack/#Timber">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/1119096"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Timber"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d10+2</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button class="button" type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d10+1</span>
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button class="button" type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 				<tr class="character">
-					<td>Nordan</td>
+					<td class="name">Nordan</td>
 					<td><a href="Nordan.jpg"><img src="Nordan.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/1133678">DndBeyond</a></td>
-					<td><a href="/athack/#Nordan">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/1133678"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Nordan"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d8+2</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
+						<span class="die">d8+2</span>
 						<input type="hidden" name="minimum" value="4">
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 				<tr class="character">
-					<td>Corminar</td>
+					<td class="name">Corminar</td>
 					<td><a href="Corminar.jpg"><img src="Corminar.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/1339195">DndBeyond</a></td>
-					<td><a href="/athack/#Corminar">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/1339195"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Corminar"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d8+1</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d8+1</span>
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 				<tr class="character">
-					<td>Airnel</td>
+					<td class="name">Airnel</td>
 					<td><a href="Airnel.jpg"><img src="Airnel.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/1183264">DndBeyond</a></td>
-					<td><a href="/athack/#Airnel">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/1183264"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Airnel"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d8+1</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d8+1</span>
+					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
+					<td>
 					</td>
 				</tr>
 				<tr class="character">
-					<td>Grondrath</td>
+					<td class="name">Grondrath</td>
 					<td><a href="Grondrath.jpg"><img src="Grondrath.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/6579686">DndBeyond</a></td>
-					<td><a href="/athack/#Grondrath">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/6579686"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Grondrath"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d12+4</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d12+4</span>
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 				<tr class="character">
-					<td>Thorin</td>
+					<td class="name">Thorin</td>
 					<td><a href="Thorin.jpg"><img src="Thorin.jpg"></a></td>
-					<td><a href="https://www.dndbeyond.com/characters/1149756">DndBeyond</a></td>
-					<td><a href="/athack/#Thorin">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="https://www.dndbeyond.com/characters/1149756"><img src="dndbeyond.jpg"></a></td>
+					<td><a href="/athack/#Thorin"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">7</span>
-						<span class="die">1d10+3</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d10+3</span>
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 				<tr class="character">
-					<td>Daz</td>
+					<td class="name">Daz</td>
 					<td><a href="daz.jpg"><img src="daz.jpg"></a></td>
 					<td></td>
-					<td><a href="/athack/#Thorin">@hack</a></td>
-					<td class="hitdie hd1">
-						<input name="current" type="number" min="0">/
+					<td><a href="/athack/#Thorin"><span class="athack">@</span></a></td>
+					<td>
+						<input name="current" type="number" dir="rtl" min="0"> /
 						<span class="maxdie">4</span>
-						<span class="die">1d10+3</span>
-						Spend: <input name="number" type="number" min="0" value="1">
-						<label for="maximise">Maximise</label>
-						<input name="maximise" type="checkbox">
-						<button type="button">Roll</button>
-						<span class="result"></span>
-						<input type="hidden" name="minimum" value="1">
+						<span class="die">d10+3</span>
 					</td>
+					<td><input name="number" type="number" dir="rtl" min="0" value="1"></td>
+					<td><input name="maximise" type="checkbox"></td>
+					<td><input name="kit" type="checkbox"></td>
+					<td><button type="button">Roll</button></td>
+					<td><span class="result"></span></td>
 				</tr>
 
 			</tbody>
 		</table>
 		<script type="text/javascript" src="https://bloodearnest.github.io/athack/dnd.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
 		<script type="text/javascript">
 var roll = function(die_text, annotated, die_func) {
 	let parts = Array.from(parse_dice(die_text))
@@ -181,6 +165,7 @@ var setup = function(pc) {
 	var num = pc.querySelector('input[name=number]');
 	var result = pc.querySelector('span.result');
 	var maximise = pc.querySelector('input[name=maximise]');
+	var kit = pc.querySelector('input[name=kit]');
 
 	num.max = max_die;
 	num.value = 1;
@@ -189,24 +174,47 @@ var setup = function(pc) {
 
 	// fixed values
 	var die_text = pc.querySelector('span.die').innerText;
-	var minimum = parseInt(pc.querySelector('input[name=minimum]').value);
-
-	var die_func = function(n) {
-		var r = die(n);
-		return r > minimum ? r : minimum;
+	var die_func = die;
+	var minimum = pc.querySelector('input[name=minimum]');
+	if (minimum) {
+		var min = parseInt(minimum.value);
+		die_func = function(n) {
+			var r = die(n);
+			return r > min ? r : min;
+		}
 	}
 
 	roll_button.onclick = function() {
 		var score = 0;
-		var df = maximise.checked ? Math.max : die_func;
+		var kits_used = 0;
+		var df = die_func;
+		if (maximise.checked) {
+			df = Math.max;
+			kits_used += 1;
+		}
+
 		var annotated = [];
 		for (var i = 0; i < num.value; i++) {
 			score += roll(die_text, annotated, df);
 		}
+		if (kit.checked) {
+			kits_used += 1;
+			var r = die(6);
+			score += r + 4 + max_die;
+			annotated.push(`1d6 (${r})`);
+			annotated.push('4');
+			annotated.push(`${max_die}`);
+		}
+		if (sor.value) {
+			score += parseInt(sor.value);
+			annotated.push(`1d6 (${sor.value})`);
+		}
+
 		current.value -= num.value;
 		num.max = current.value;
 		num.value = Math.min(current.value, 1);
 		result.innerText = score;
+		healing_kits.value = parseInt(healing_kits.value) + kits_used;
 		console.log(annotated);
 		return false;
 	};
@@ -218,10 +226,36 @@ var setup = function(pc) {
 };
 
 var chars = document.querySelectorAll('.characters tr.character');
-for(var z = 0; z < chars.length; z++) {
-	var pc = chars[z];
-	setup(pc);
+chars.forEach(setup);
+
+var longrest = document.querySelector('#longrest');
+longrest.onclick = function() {
+	chars.forEach(function(pc) {
+		var max_die = parseInt(pc.querySelector('span.maxdie').innerText);
+		var to_add = Math.floor(max_die / 2);
+		var current = pc.querySelector('input[name=current]');
+		current.value = Math.min(parseInt(current.value) + to_add, current.max);
+	});
+};
+var sor = document.querySelector('#songofrest button');
+sor.onclick = function() {
+	var r = die(6);
+	sor.innerText = `SoR: ${r}`;
+	sor.value = r;
 }
+
+var healing_kits = document.querySelector('#healingkits input');
+
+var maximise_cbs = document.querySelectorAll('input[name=maximise]');
+maximise_cbs.forEach(function(cb) {
+	cb.onchange = function() {
+		maximise_cbs.forEach(function(cb2) {
+			if (cb !== cb2) {
+				cb2.checked = false;
+			}
+		});
+	};
+});
 		</script>
 	</body>
 </html>
