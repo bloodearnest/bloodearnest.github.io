@@ -9,7 +9,7 @@ body {
 
 ul { margin-bottom: 1em; }
 
-.characters th, .character td {
+#characters th, .character td {
 	padding: 0;
 	text-align: center;
 	vertical-align: middle;
@@ -18,12 +18,12 @@ ul { margin-bottom: 1em; }
 
 .character td.left { text-align: left; }
 
-.characters td.name {
+#characters td.name {
   font-family: MrJeeves;
   font-weight: 800;
   color: #58180D;
 }
-.characters .athack {
+#characters .athack {
 	display: inline-block;
 	font-size: 1.2em;
     border-radius: 2em;
@@ -35,18 +35,18 @@ ul { margin-bottom: 1em; }
 	text-decoration: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.characters img { height: 2em; }
-.characters .hitdie * {
+#characters img { height: 2em; }
+#characters .hitdie * {
 	display: inline-block;
 	font-size: 1em;
 }
 
-.characters .die {
+#characters .die {
 	font-size: 0.8em;
 	color: grey;
 }
 
-.characters button {
+#characters button {
 	min-width:  4em;
 }
 
@@ -63,6 +63,12 @@ input[type=number] {
 	background: inherit;
 	border: 0;
   font-size: 1em;
+}
+
+input.result[type="number"]::-webkit-outer-spin-button,
+input.result[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 /* bigger checkboxes */
 input[type=checkbox] {

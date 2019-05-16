@@ -13,7 +13,7 @@
 			<li><a href="https://www.dropbox.com/sh/oarzj1cay273238/AAASZsyhxq4hqAS6vPjp9wB6a?dl=0">Dropbox Folder</a>
 			<li><a href="rest.html">Resting Checklist</a></li>
 		</ul>
-		<table class="characters">
+		<table id="characters">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -42,7 +42,7 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button class="button" type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
 				<tr class="character" id="nordan">
 					<td class="name">Nordan</td>
@@ -59,7 +59,7 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
 				<tr class="character" id="corminar">
 					<td class="name">Corminar</td>
@@ -75,7 +75,7 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
 				<tr class="character" id="airnel">
 					<td class="name">Airnel</td>
@@ -91,11 +91,11 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 					<td>
 					</td>
 				</tr>
-				<tr class="character" id="">
+				<tr class="character" id="grondrath">
 					<td class="name">Grondrath</td>
 					<td><a href="Grondrath.jpg"><img src="Grondrath.jpg"></a></td>
 					<td><a href="https://www.dndbeyond.com/characters/6579686"><img src="dndbeyond.jpg"></a></td>
@@ -109,7 +109,7 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
 				<tr class="character" id="thorin">
 					<td class="name">Thorin</td>
@@ -125,7 +125,7 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
 				<tr class="character" id="daz">
 					<td class="name">Daz</td>
@@ -141,14 +141,47 @@
 					<td><input name="maximise" type="checkbox"></td>
 					<td><input name="kit" type="checkbox"></td>
 					<td><button type="button">Roll</button></td>
-					<td><span class="result"></span></td>
+					<td><input class="result" type="number" disabled></td>
 				</tr>
-
 			</tbody>
 		</table>
+		<div id=player>
+			<h3>Player</h3>
+			<button class=Reconnect>Connect</button>
+		</div>
 		<script type="text/javascript" src="https://bloodearnest.github.io/athack/dnd.js"></script>
 		<script type="text/javascript" src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
 		<script type="text/javascript">
+
+var CHANGE = new Event('change');
+var CONNECTIONS = [];
+var STATE = {};
+var local_state = window.localStorage.getItem('toa');
+if (local_state !== "undefined" && local_state !== null) {
+	STATE = JSON.parse(local_state);
+}
+
+var save = function(key, value) {
+	STATE[key] = value;
+	window.localStorage.setItem('toa', JSON.stringify(STATE));
+	CONNECTIONS.forEach(function(conn) {
+		conn.send(STATE);
+	});
+};
+
+var ensure_local = function(key, _default) {
+	if (STATE[key] == undefined) {
+		STATE[key] = _default;
+	}
+	return STATE[key];
+}
+
+// set value and fire onchange event
+var set_value = function(elem, value) {
+	elem.value = parseInt(value);
+	elem.dispatchEvent(CHANGE);
+}
+
 
 var roll = function(die_text, annotated, die_func) {
 	let parts = Array.from(parse_dice(die_text))
@@ -159,42 +192,31 @@ var roll = function(die_text, annotated, die_func) {
 	return score;
 };
 
-var CHANGE = new Event('change');
-var set_value = function(elem, value) {
-	elem.value = parseInt(value);
-	elem.dispatchEvent(CHANGE);
-}
-
-var ensure_local = function(name, _default) {
-	var value = window.localStorage.getItem(name);
-	if (value === "undefined" || value === null) {
-		window.localStorage.setItem(name, _default);
-		return _default;
-	}
-	else {
-		return value;
-	}
-}
 
 var setup = function(pc) {
 	var roll_button = pc.querySelector('button');
 	var max_hd = parseInt(pc.querySelector('span.maxdie').innerText);
 	var current = pc.querySelector('input[name=current]');
 	var num = pc.querySelector('input[name=number]');
-	var result = pc.querySelector('span.result');
+	var result = pc.querySelector('input.result');
 	var maximise = pc.querySelector('input[name=maximise]');
 	var kit = pc.querySelector('input[name=kit]');
 
 	current.max = max_hd;
 	current.onchange = function() {
-		window.localStorage.setItem(pc.id, parseInt(current.value));
 		num.max = current.value;
 		num.value = Math.min(current.value, 1);
+		save(pc.id, parseInt(current.value));
 		return true;
 	};
 
 	var initial_hd = ensure_local(pc.id, max_hd);
 	set_value(current, initial_hd);
+
+	result.onchange = function() {
+		save(pc.id + '.result', parseInt(result.value));
+		return true;
+	};
 
 	// fixed values
 	var die_text = pc.querySelector('span.die').innerText;
@@ -237,14 +259,14 @@ var setup = function(pc) {
 		var new_value = current.value -= num.value;
 		set_value(current, new_value);
 		set_value(healing_kits, parseInt(healing_kits.value) + kits_used);
-		result.innerText = score;
+		set_value(result, score);
 		console.log(annotated);
 		return false;
 	};
 
 };
 
-var chars = document.querySelectorAll('.characters tr.character');
+var chars = document.querySelectorAll('#characters tr.character');
 chars.forEach(setup);
 
 var longrest = document.querySelector('#longrest');
@@ -265,7 +287,7 @@ sor.onclick = function() {
 
 var healing_kits = document.querySelector('#healingkits input');
 healing_kits.onchange = function() {
-	window.localStorage.setItem('healingkits', healing_kits.value);
+	save('healingkits', healing_kits.value);
 	return true;
 }
 set_value(healing_kits, ensure_local('healingkits', 0));
@@ -281,6 +303,55 @@ maximise_cbs.forEach(function(cb) {
 		});
 	};
 });
+
+var player = document.querySelector('#player');
+
+var connect_player = function() {
+	var peer = new Peer();
+	peer.on('error', function(err) {
+		console.log(err);
+		player.style = "display: block;";
+	});
+	var conn = peer.connect('bloodearnest-toa-master');
+	conn.on('open', function() {
+		console.log('connected: ' + conn);
+		player.style = "display: none;";
+	});
+
+	conn.on('data', function(data){
+		console.log(data);
+		document.querySelectorAll('#characters tr.character').forEach(function(pc) {
+			var value = data[pc.id];
+			var current = pc.querySelector('input[name=current]');
+			set_value(current, value);
+		});
+	});
+}
+
+player.querySelector('button').onclick = connect_player;
+
+if (window.location.hash === '#dm') {
+	player.style = "display: none;";
+	var peer = new Peer('bloodearnest-toa-master');
+	peer.on('error', function(err) { console.log(err); });
+
+	peer.on('open', function(id) {
+		console.log('Listening. My peer ID is: ' + id);
+	});
+
+	peer.on('connection', function(conn) {
+		console.log('connection from ', conn);
+		conn.on('data', function(data){
+			console.log(data);
+		});
+		CONNECTIONS.push(conn);
+		setTimeout(function() { conn.send(STATE) }, 500);
+	});
+
+} else {
+	connect_player();
+};
+
 		</script>
 	</body>
 </html>
