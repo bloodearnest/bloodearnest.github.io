@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tomb of Annihiliation Campaign</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+		<link rel="stylesheet" href="https://bloodearnest.github.io/athack/fonts.css">
+		<link rel="stylesheet" href="toa.css">
+		<style>
+
+body { margin: 0; padding: 0 }
+
+iframe {
+  height: 100%;
+  resize: both;
+  overflow: auto;
+  position: fixed;
+}
+
+#ii {
+   left: 0;
+}
+
+#map {
+   right: 0;
+}
+
+		</style>
+	</head>
+	<body>
+		<iframe id="ii" src="https://www.improved-initiative.com/p/xe51k77i"></iframe>
+		<iframe id="map" src="http://62.30.218.8:3000"></iframe>
+		<script>
+
+let params = (new URL(document.location)).searchParams;
+let w = params.get("w") || "50";
+document.getElementById("ii").style.width = w + '%';
+document.getElementById("map").style.width = (100 - parseInt(w)) + '%';
+
+
+		</script>
+	</body>
+</html>
